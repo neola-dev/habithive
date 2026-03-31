@@ -15,13 +15,7 @@ const JoinGroupPage = () => {
   // 🔐 Redirect if not logged in
   useEffect(() => {
     if (!userInfo) {
-      navigate("/login", {
-        state: {
-         redirect: window.location.pathname,
-          inviteMessage: "⚠️ Login to join the invited group",
-          replace: true
-        },
-      });
+      navigate(`/login?redirect=/invite/${inviteCode}&type=group`, { replace: true });
     }
   }, [userInfo, inviteCode, navigate]);
 
