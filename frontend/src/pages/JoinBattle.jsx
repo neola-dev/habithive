@@ -9,17 +9,12 @@ function JoinBattle() {
   const [battle, setBattle] = useState(null);
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState("");
-  const [userInfo, setUserInfo] = useState(undefined);
 
-  // 🔐 Load user
-  useEffect(() => {
-    const storedUser = localStorage.getItem("userInfo");
-    setUserInfo(storedUser ? JSON.parse(storedUser) : null);
-  }, []);
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
 
-  // 🔐 Redirect
+  // 🔐 Redirect if not logged in
   useEffect(() => {
-    if (userInfo === null) {
+    if (!userInfo) {
       navigate("/login", {
         state: {
           redirect: `/battle/invite/${code}`,
@@ -27,11 +22,11 @@ function JoinBattle() {
         },
       });
     }
-  }, [userInfo, navigate, code]);
+  }, [userInfo, code, navigate]);
 
   // 🚀 Fetch battle
   useEffect(() => {
-    if (userInfo === undefined || userInfo === null) return;
+    if (!userInfo) return;
 
     const fetchBattle = async () => {
       try {
@@ -56,7 +51,7 @@ function JoinBattle() {
 
   // 🚀 Fetch groups
   useEffect(() => {
-    if (userInfo === undefined || userInfo === null) return;
+    if (!userInfo) return;
 
     const fetchGroups = async () => {
       try {
@@ -99,6 +94,7 @@ function JoinBattle() {
       );
 
       const data = await res.json();
+
       if (!res.ok) return alert(data.message);
 
       alert("🔥 Joined battle successfully!");
@@ -108,9 +104,7 @@ function JoinBattle() {
     }
   };
 
-  // ✅ guards
-  if (userInfo === undefined) return null;
-  if (userInfo === null) return null;
+  if (!userInfo) return null;
   if (!battle) return <h2 className="loading">Loading battle...</h2>;
 
   return (
@@ -135,7 +129,7 @@ function JoinBattle() {
             onChange={(e) => setSelectedGroup(e.target.value)}
           >
             <option value="">Select group</option>
-            {groups.map((group) => (
+            {groups?.map((group) => (
               <option key={group._id} value={group._id}>
                 {group.name}
               </option>
