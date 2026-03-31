@@ -30,6 +30,14 @@ function Login() {
     setInviteMessage(location.state.inviteMessage);
   }
 }, [searchParams, location.state]);
+
+  useEffect(() => {
+  const userInfo = localStorage.getItem("userInfo");
+
+  if (userInfo && !location.state?.redirect && !searchParams.get("redirect")) {
+    navigate("/app");
+  }
+}, []);
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -47,9 +55,7 @@ function Login() {
           name: data.name,
         })
       );
-      const destination = location.state?.redirect || "/app";
-    
-      navigate(destination, { replace: true });
+      navigate(redirect, { replace: true });
     } catch {
       alert("Login failed");
     }
