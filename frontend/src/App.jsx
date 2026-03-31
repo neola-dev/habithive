@@ -11,13 +11,13 @@ import CreateBattle from "./pages/CreateBattle";
 import BattlesPage from "./pages/BattlesPage";
 import BattlePage from "./pages/BattlePage";
 import AuthRedirect from "./components/AuthRedirect";
+
 function App() {
   return (
     <Router>
       <Routes>
 
         <Route path="/" element={<Login />} />
-
         <Route path="/register" element={<Register />} />
 
         <Route
@@ -29,38 +29,37 @@ function App() {
           }
         />
 
-
-        
         <Route path="/group/:id" element={<GroupPage />} />
-        <Route path="/invite/:inviteCode" element={<JoinGroupPage />} />
-         <Route path="/groups/:groupId/leaderboard" element={<LeaderboardPage />} />
-         <Route path="/create-battle" element={<CreateBattle />} />
-         <Route path="/battles" element={<BattlesPage />} />
-  
-         <Route path="/battle/invite/:code" element={<JoinBattle />} />
-        <Route path="/battle/:battleId" element={<BattlePage />} />
-        <Route path="*" element={<Navigate to="/" />} />
 
-        <Route path="/group/:id" element={<GroupPage />} />
-        <Route path="/invite/:inviteCode" 
+        {/* ✅ FIXED: wrapped with AuthRedirect */}
+        <Route
+          path="/invite/:inviteCode"
+          element={
+            <AuthRedirect>
+              <JoinGroupPage />
+            </AuthRedirect>
+          }
+        />
+
+        <Route path="/groups/:groupId/leaderboard" element={<LeaderboardPage />} />
+        <Route path="/create-battle" element={<CreateBattle />} />
+        <Route path="/battles" element={<BattlesPage />} />
+
+        {/* ✅ FIXED: wrapped with AuthRedirect */}
+        <Route
+          path="/battle/invite/:code"
           element={
             <AuthRedirect>
               <JoinBattle />
             </AuthRedirect>
           }
         />
-       <Route path="/groups/:groupId/leaderboard" element={<LeaderboardPage />} />
-       <Route path="/create-battle" element={<CreateBattle />} />
-       <Route path="/battles" element={<BattlesPage />} />
-  
-       <Route path="/battle/invite/:code" element={
-          <AuthRedirect>
-            <JoinBattle />
-          </AuthRedirect>}
-        />
-      <Route path="/battle/:battleId" element={<BattlePage />} />
-      <Route path="*" element={<Navigate to="/" />} />
-        
+
+        <Route path="/battle/:battleId" element={<BattlePage />} />
+
+        {/* ✅ ALWAYS LAST */}
+        <Route path="*" element={<Navigate to="/" />} />
+
       </Routes>
     </Router>
   );
