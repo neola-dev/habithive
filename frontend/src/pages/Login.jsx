@@ -38,8 +38,9 @@ function Login() {
           name: data.name,
         })
       );
-
-      navigate(redirect);
+      const destination = location.state?.redirect || "/app";
+    
+      navigate(destination, { replace: true });
     } catch {
       alert("Login failed");
     }
@@ -89,7 +90,7 @@ function Login() {
 
           <p className="auth-link">
             New user?{" "}
-            <span onClick={() => navigate("/register")}>
+            <span onClick={() => navigate("/register", { state: location.state })}>
               Register here
             </span>
           </p>
