@@ -28,16 +28,17 @@ function App() {
           }
         />
 
-        <Route path="*" element={<Navigate to="/" />} />
+     
         
         <Route path="/group/:id" element={<GroupPage />} />
         <Route path="/invite/:inviteCode" element={<JoinGroupPage />} />
-       <Route path="/groups/:groupId/leaderboard" element={<LeaderboardPage />} />
-       <Route path="/create-battle" element={<CreateBattle />} />
-       <Route path="/battles" element={<BattlesPage />} />
+         <Route path="/groups/:groupId/leaderboard" element={<LeaderboardPage />} />
+         <Route path="/create-battle" element={<CreateBattle />} />
+         <Route path="/battles" element={<BattlesPage />} />
   
-       <Route path="/battle/invite/:code" element={<JoinBattle />} />
-      <Route path="/battle/:battleId" element={<BattlePage />} />
+         <Route path="/battle/invite/:code" element={<JoinBattle />} />
+        <Route path="/battle/:battleId" element={<BattlePage />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
