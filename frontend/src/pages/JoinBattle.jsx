@@ -18,7 +18,7 @@ function JoinBattle() {
 
   // 🔐 Redirect if not logged in
   useEffect(() => {
-    if (userInfo === undefined) return;
+    
     if (!userInfo) {
       navigate("/login", {
         state: {
