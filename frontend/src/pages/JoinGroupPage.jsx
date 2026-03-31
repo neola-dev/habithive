@@ -9,11 +9,15 @@ const JoinGroupPage = () => {
   const [group, setGroup] = useState(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
-
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+  const [userInfo, setUserInfo] = useState(undefined);
+  useEffect(() => {
+  const storedUser = localStorage.getItem("userInfo");
+  setUserInfo(storedUser ? JSON.parse(storedUser) : null);
+}, []);
 
   // 🔐 Redirect if not logged in
   useEffect(() => {
+    if (userInfo === undefined) return;
     if (!userInfo) {
       navigate("/login", {
         state: {
@@ -27,7 +31,7 @@ const JoinGroupPage = () => {
   // 🚀 Fetch group
 
   useEffect(() => {
-    if (!userInfo) return null;
+    if (userInfo === undefined) return null;
 
     const fetchGroup = async () => {
       try {
