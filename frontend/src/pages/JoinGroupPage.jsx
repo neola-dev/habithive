@@ -11,14 +11,8 @@ const JoinGroupPage = () => {
   const [message, setMessage] = useState(null);
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
-  // 🔐 Redirect if not logged in
-  useEffect(() => {
-    if (!userInfo) {
-      navigate(`/login?redirect=/invite/${inviteCode}&type=group`, { replace: true });
-    }
-  }, [userInfo, inviteCode, navigate]);
 
-  // 🚀 Fetch group
+ 
   useEffect(() => {
     if (!userInfo) return;
 

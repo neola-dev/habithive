@@ -12,12 +12,6 @@ function JoinBattle() {
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
 
-  // 🔐 Redirect if not logged in
-  useEffect(() => {
-    if (!userInfo) {
-      navigate(`/login?redirect=/battle/invite/${code}&type=battle`, { replace: true });
-    }
-  }, [userInfo, code, navigate]);
 
   // 🚀 Fetch battle
   useEffect(() => {
