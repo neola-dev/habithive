@@ -17,8 +17,9 @@ function JoinBattle() {
     if (!userInfo) {
       navigate("/login", {
         state: {
-          redirect: `/battle/invite/${code}`,
+          redirect: window.location.pathname,
           inviteMessage: "⚠️ Login to join the battle",
+          replace: true
         },
       });
     }
