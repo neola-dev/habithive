@@ -1,0 +1,275 @@
+/* ===== Page ===== */
+.group-page {
+  background: #FFE4E1;
+  min-height: 100vh;
+}
+
+ .group-container {
+  max-width: 1100px;   /* controls overall width */
+  margin: 0 auto;      /* centers entire layout */
+  padding: 20px;
+}
+/* ===== Header ===== */
+.group-header{
+    text-align: center;
+}
+.group-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1F2937;
+}
+
+.group-header p {
+  color: #6B7280;
+  margin-top: 5px;
+}
+
+/* ===== Buttons ===== */
+.group-actions {
+  margin: 20px 0;
+  display: flex;
+  gap: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #FF8F3F, #FB923C);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.success-btn {
+  background: #22C55E;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary-btn:hover,
+.success-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== Message ===== */
+.message {
+  margin-bottom: 10px;
+  color: #16A34A;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ===== Card ===== */
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  height: fit-content;
+}
+
+/* ===== Members ===== */
+.members-card h3 {
+  margin-bottom: 15px;
+}
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Individual member row */
+.member-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFF7ED;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+/* Rank */
+.rank {
+  font-weight: 600;
+  color: #FF8F3F;
+}
+
+/* Name */
+.name {
+  flex: 1;
+  margin-left: 10px;
+  color: #1F2937;
+}
+
+/* Status */
+.active {
+  color: #16A34A;
+  font-weight: 600;
+}
+
+.missed {
+  color: #DC2626;
+  font-weight: 600;
+}
+
+/* ===== Loading ===== */
+.loading {
+  padding: 50px;
+  text-align: center;
+}
+
+/* Activity Feed Container */
+.activity-feed {
+  max-height: 300px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* optional: scrollbar styling */
+.activity-feed::-webkit-scrollbar {
+  width: 6px;
+}
+
+.activity-feed::-webkit-scrollbar-thumb {
+  background: #FF8F3F;
+  border-radius: 10px;
+}
+/* ===== Layout Wrapper ===== */
+.group-content {
+  display: grid;
+
+  grid-template-columns: repeat(2, 420px);  /* 🔥 fixed width cards */
+  justify-content: center;                  /* 🔥 center both cards */
+  gap: 30px;                                /* 🔥 proper spacing */
+
+  margin-top: 20px;
+}
+@media (max-width: 768px) {
+  .group-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 🎉 CONFETTI EFFECT */
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 999;
+}
+
+/* create particles */
+.confetti::before,
+.confetti::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #FF8F3F;
+  animation: fall 1s linear infinite;
+}
+
+/* multiple particles using box-shadow trick */
+.confetti::before {
+  box-shadow:
+    50px 100px #FF8F3F,
+    150px 200px #22C55E,
+    250px 150px #3B82F6,
+    350px 250px #FACC15,
+    450px 100px #FB923C,
+    550px 200px #EF4444,
+    650px 150px #8B5CF6;
+}
+
+.confetti::after {
+  box-shadow:
+    100px 50px #22C55E,
+    200px 120px #3B82F6,
+    300px 80px #FACC15,
+    400px 160px #FB923C,
+    500px 60px #EF4444,
+    600px 140px #8B5CF6;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.fire-effect {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  font-size: 50px;
+  pointer-events: none;
+  z-index: 1000;
+
+  animation: firePop 1s ease forwards;
+}
+
+@keyframes firePop {
+  0% {
+    transform: translate(-50%, 30px) scale(0.5);
+    opacity: 0;
+  }
+  40% {
+    transform: translate(-50%, -10px) scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -60px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ⭐ XP POPUP */
+.xp-popup {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  font-weight: bold;
+  color: #F59E0B;
+  animation: xpFloat 1s ease forwards;
+}
+
+@keyframes xpFloat {
+  0% {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -40px);
+    opacity: 0;
+  }
+}

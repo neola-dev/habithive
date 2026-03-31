@@ -1,0 +1,182 @@
+/* CONTAINER */
+.leaderboard-container-battle {
+  background: white;
+  border-top: 5px solid #FF8F3F;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+  max-width: 950px;
+  margin: 2rem auto;
+  padding: 1.5rem; /* 🔥 soft orange bg */
+  border-radius: 16px;
+  
+}
+
+/* TITLE */
+.leaderboard-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+/* SCORE BOX */
+.score-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #dee5f5;
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+/* TEAM SCORE */
+.score {
+  text-align: center;
+}
+
+.score span {
+  font-size: 14px;
+  color: #666;
+}
+
+.score h3 {
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+/* COLORS */
+.team-a-score h3 {
+  color: #1565c0;
+}
+
+.team-b-score h3 {
+  color: #c62828;
+}
+
+/* VS */
+.vs-text {
+  font-weight: bold;
+  font-size: 16px;
+  color: #555;
+}
+
+/* LEADER */
+.leader-banner {
+  text-align: center;
+  background: #c0f3c5;
+  color: #2e7d32;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.leaderboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* TEAM CARD */
+.team-card {
+  background: #f5c1c1;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  border: 2px solid black;
+  border-style: dotted;
+}
+
+/* TEAM TITLE */
+.team-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* MEMBER ROW */
+.member-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border: 1px solid orangered;
+}
+.member-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* HOVER */
+.member-row:hover {
+  background: #FF8F3F;
+}
+
+/* STREAK */
+.streak {
+  font-weight: 600;
+}
+
+/* WAITING */
+.waiting-text {
+  text-align: center;
+  color: #f9a825;
+  margin-top: 20px;
+}
+
+/* LOADING */
+.leaderboard-loading {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
+/* 📱 MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+
+  .leaderboard-container-battle {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .leaderboard-title {
+    font-size: 18px;
+  }
+
+  /* Stack scores vertically */
+  .score-box {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .vs-text {
+    font-size: 14px;
+  }
+
+  /* Grid → single column */
+  .leaderboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Team card spacing */
+  .team-card {
+    padding: 12px;
+  }
+
+  /* Member row */
+  .member-row {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .streak {
+    font-size: 14px;
+  }
+}

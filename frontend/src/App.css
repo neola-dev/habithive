@@ -1,0 +1,341 @@
+/* ======== General ======== */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background: #FFE4E1; /* soft warm background */
+  color: #1F2937;
+}
+
+.dashboard {
+  width: 100%;
+  padding: 80px 20px;
+  box-sizing: border-box;
+}
+
+/* ======== Navbar ======== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(135deg, #FF8F3F, #FB923C);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.app-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: whitesmoke;
+}
+
+/* ======== Top Bar ======== */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.top-bar h1 {
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* ======== Sections ======== */
+.section {
+  margin-bottom: 25px;
+}
+
+/* ======== Badges ======== */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge {
+  background: linear-gradient(135deg, violet, blueviolet);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ======== Cards Layout ======== */
+.card-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ======== Card ======== */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  min-width: 260px;
+  max-width: 370px;
+  flex: 1;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: 0.25s;
+  border-top: 4px solid #FF8F3F;
+  margin-bottom: 5px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* ======== Create Group Card ======== */
+.create-group-card input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #E5E7EB;
+  outline: none;
+}
+
+.create-group-card input:focus {
+  border-color: #FF8F3F;
+  box-shadow: 0 0 5px rgba(255,143,63,0.3);
+}
+
+/* ======== Buttons ======== */
+.primary-btn{
+  background: orangered !important;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+  margin-top: 4px;
+}
+
+
+.secondary-btn {
+  background-color:  #E5E7EB;
+  color: #374151;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background-color:  red;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+
+.secondary-btn:hover {
+  background: rgb(97, 194, 227);
+}
+
+/* ======== Actions ======== */
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+/* ======== Group Card ======== */
+.group-card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: 0.25s;
+  border-left: 5px solid #FF8F3F;
+  width: 270px;   /* 🔥 IMPORTANT */
+}
+.group-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ======== Card Content ======== */
+.group-card h3 {
+  margin-bottom: 6px;
+  color: #1F2937;
+}
+
+.group-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #4B5563;
+}
+
+/* ======== Card Actions ======== */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.card-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+.open-btn{
+  background-color: lightblue;
+}
+
+/* WhatsApp */
+.card-actions .whatsapp {
+  background-color: #25D366;
+  color: white;
+}
+
+.card-actions .whatsapp:hover {
+  background-color: #1ebe57;
+}
+
+/* ======== Responsive ======== */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}
+.card-actions .copy-btn {
+  flex: 1;
+  padding: 10px;
+  background: #919eab;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+/* HOVER */
+/* COPIED STATE */
+
+.copy-btn.copied {
+  background: #22C55E;
+  color: white;
+  transform: scale(1.05);
+}
+
+.active-battle-card {
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  border-radius: 20px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.active-battle-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* Title */
+.battle-title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: orangered !important;
+}
+
+/* Teams row */
+.battle-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.team {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Different colors for teams */
+.team-a {
+  background: rgba(224, 28, 70, 0.2);
+  border: 1px solid rgba(182, 42, 72, 0.6);
+  color: #1f1c2c;
+}
+
+.team-b {
+  background: rgba(10, 111, 179, 0.2);
+  border: 1px solid rgba(15, 108, 170, 0.6);
+  color: #1f1c2c;
+}
+
+.vs {
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: 18px;
+  color: brown;
+}
+
+/* Status */
+.battle-status {
+  text-align: center;
+}
+
+.leader {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff00aa;
+}
+
+.lead-score {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Empty state */
+.no-battle {
+  text-align: center;
+  opacity: 0.7;
+  font-style: italic;
+  color: #1f1c2c;
+  font-weight: bold;
+}
+

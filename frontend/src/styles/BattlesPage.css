@@ -1,0 +1,98 @@
+/* PAGE CONTAINER */
+.battles-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* TITLE */
+.battles-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* GRID LAYOUT */
+.battle-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+
+
+/* EMPTY STATE */
+.no-battles {
+  text-align: center;
+  margin-top: 80px;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* OPTIONAL: SMOOTH ENTRY ANIMATION */
+.battle-card {
+  animation: fadeInUp 0.4s ease;
+  flex: 1 1 300px;
+  min-width: 280px;
+  max-width: 350px;
+}
+
+/* ANIMATION */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* BattlesPage.css */
+
+/* Container for filter buttons */
+.battle-filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* Common button style */
+.battle-filters button {
+  padding: 8px 20px;
+  border: 2px solid #ff6b6b;
+  background-color: white;
+  color: #ff6b6b;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.battle-filters button:hover {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+/* Active selected filter */
+.battle-filters button.active {
+  background-color: #ff6b6b;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+}
+
+/* Responsive adjustment */
+@media (max-width: 500px) {
+  .battle-filters button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}

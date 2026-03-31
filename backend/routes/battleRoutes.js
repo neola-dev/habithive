@@ -1,0 +1,11 @@
+const express=require("express");
+const router=express.Router();
+const protect=require("../middleware/authMiddleware");
+const {createBattleInvite, getBattleByInvite,joinBattle, getBattleProgress,getUserBattles,getActiveBattle}=require("../controllers/battleController");
+router.get("/",protect,getUserBattles);
+router.post("/invite",protect,createBattleInvite);
+router.get("/invite/:code",protect,getBattleByInvite);
+router.post("/join",protect,joinBattle);
+router.get("/active-battle", protect, getActiveBattle);
+router.get("/:battleId/progress",protect,getBattleProgress);
+module.exports=router;

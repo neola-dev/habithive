@@ -1,0 +1,93 @@
+/* CARD CONTAINER */
+.battle-page .battle-card {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* HOVER EFFECT */
+.battle-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+/* HEADER (Teams) */
+.battle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* TEAM NAMES */
+.team-name {
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* TEAM COLORS */
+.team-a {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.team-b {
+  background: #fdecea;
+  color: #c62828;
+}
+
+/* VS TEXT */
+.vs {
+  font-weight: bold;
+  color: #555;
+}
+
+/* LEADER BOX */
+.leader-box {
+  margin-top: 10px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* SCORE */
+.lead-score {
+  font-weight: bold;
+  color: #1b5e20;
+}
+
+/* BUTTON */
+.view-btn {
+    display: block;
+    margin: 16px auto 0;
+  width: 60%;
+  background: rgb(249, 111, 61); 
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* BUTTON HOVER */
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* LOADING TEXT */
+.battle-loading {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}

@@ -1,0 +1,99 @@
+/* ======== Page Background ======== */
+.join-group-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFE4E1; /* soft warm background */
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ======== Loading & Not Found ======== */
+.loading-text {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 22px;
+  color: #1f2937;
+}
+
+/* ======== Group Card ======== */
+.group-card-container {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  border: 2px solid orangered;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.group-card-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+/* ======== Text Styling ======== */
+.group-title {
+  font-size: 28px;
+  color: #FF8F3F;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.group-desc {
+  font-size: 16px;
+  color: #4B5563;
+  margin-bottom: 15px;
+}
+
+.group-creator,
+.group-members {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 10px;
+}
+
+/* ======== Buttons ======== */
+.primary-btn.join-btn {
+  background: orangered;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.primary-btn.join-btn:hover {
+  background: #ff5a1f;
+}
+
+/* ======== Responsive ======== */
+@media (max-width: 500px) {
+  .group-card-container {
+    padding: 25px 15px;
+  }
+
+  .group-title {
+    font-size: 24px;
+  }
+
+  .group-desc {
+    font-size: 15px;
+  }
+
+  .primary-btn.join-btn {
+    width: 100%;
+  }
+}
+.info{
+    font-size: 15px;
+    color: green;
+    font-weight: 400;
+}

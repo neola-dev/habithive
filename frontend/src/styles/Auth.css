@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&display=swap');
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background: #FFF8F0;
+}
+
+/* MAIN CONTAINER */
+.login-container {
+  display: flex;
+  min-height: 100vh; /* FIXED */
+  flex-wrap: wrap; /* IMPORTANT */
+}
+
+/* LEFT SECTION */
+.login-container .login-left {
+  flex: 1;
+  min-width: 300px;
+  background: linear-gradient(135deg, #FF8F3F, #FF8F3F);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #FFF8F0;
+  padding: 40px;
+  text-align: center;
+}
+
+.login-container .brand-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.login-container .login-animation {
+  width: 320px;
+  margin-top: 10px;
+}
+
+.login-container .brand-tagline {
+  margin-top: 20px;
+  font-size: 22px;
+  color: #FFF3E0;
+  font-family: 'Dancing Script';
+}
+
+/* RIGHT SECTION */
+.login-container .login-right {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFE4E1;
+  padding: 20px;
+}
+
+/* FORM */
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* CARD */
+.login-container .auth-card {
+  width: 90%;
+  max-width: 380px; /* FIXED */
+  padding: 45px 35px;
+  background: #FFF3E0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border: 1px solid #FFD699;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TITLE */
+.login-container .auth-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: orangered;
+  margin-bottom: 25px;
+}
+
+/* INPUT */
+.login-container .auth-input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #FFD699;
+  font-size: 15px;
+  background: #FFF8F0;
+  color: #333;
+}
+
+.login-container .auth-input::placeholder {
+  color: #FFA76B;
+}
+
+.login-container .auth-input:focus {
+  outline: none;
+  border-color: #FF8F3F;
+  box-shadow: 0 0 0 3px rgba(255,143,0,0.2);
+}
+
+/* BUTTON */
+.login-container .auth-button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  background: #FF8F3F;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-container .auth-button:hover {
+  background: orangered;
+}
+
+/* LINK */
+.login-container .auth-link {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #eb7317;
+  text-align: center;
+}
+
+.login-container .auth-link span {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-container .auth-link span:hover {
+  text-decoration: underline;
+  color: orangered;
+}
+
+/* INVITE BANNER */
+.login-container .invite-banner {
+  background: rgba(255,143,0,0.1);
+  color: #FF8F00;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255,143,0,0.3);
+  width: 100%;
+  text-align: center;
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 1024px) {
+  .login-container .login-animation {
+    width: 260px;
+  }
+
+  .login-container .brand-title {
+    font-size: 36px;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column; /* STACK */
+  }
+
+  .login-container .login-left {
+    padding: 30px 20px;
+  }
+
+  .login-container .login-animation {
+    width: 200px;
+  }
+
+  .login-container .brand-title {
+    font-size: 30px;
+  }
+
+  .login-container .brand-tagline {
+    font-size: 18px;
+  }
+
+  .login-container .auth-card {
+    padding: 30px 20px;
+  }
+}
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width: 480px) {
+  .login-container .login-left {
+    padding: 20px 15px;
+  }
+
+  .login-container .brand-title {
+    font-size: 26px;
+  }
+
+  .login-container .brand-tagline {
+    font-size: 16px;
+  }
+
+  .login-container .login-animation {
+    width: 160px;
+  }
+}
