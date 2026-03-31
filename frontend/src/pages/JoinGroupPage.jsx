@@ -17,8 +17,9 @@ const JoinGroupPage = () => {
     if (!userInfo) {
       navigate("/login", {
         state: {
-          redirect: `/invite/${inviteCode}`,
+         redirect: window.location.pathname,
           inviteMessage: "⚠️ Login to join the invited group",
+          replace: true
         },
       });
     }
