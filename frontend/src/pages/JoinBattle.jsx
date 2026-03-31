@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../styles/JoinBattle.css";
 
 function JoinBattle() {
-
   const { code } = useParams();
   const navigate = useNavigate();
 
@@ -11,15 +10,16 @@ function JoinBattle() {
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState("");
   const [userInfo, setUserInfo] = useState(undefined);
-  useEffect(() => {
-  const storedUser = localStorage.getItem("userInfo");
-  setUserInfo(storedUser ? JSON.parse(storedUser) : null);
-}, []);
 
-  // 🔐 Redirect if not logged in
+  // 🔐 Load user
   useEffect(() => {
-    
-    if (userInfo===null) {
+    const storedUser = localStorage.getItem("userInfo");
+    setUserInfo(storedUser ? JSON.parse(storedUser) : null);
+  }, []);
+
+  // 🔐 Redirect
+  useEffect(() => {
+    if (userInfo === null) {
       navigate("/login", {
         state: {
           redirect: `/battle/invite/${code}`,
@@ -27,11 +27,11 @@ function JoinBattle() {
         },
       });
     }
-  }, [code, navigate, userInfo]);
+  }, [userInfo, navigate, code]);
 
   // 🚀 Fetch battle
   useEffect(() => {
-    if (userInfo === undefined || userInfo===null) return;
+    if (userInfo === undefined || userInfo === null) return;
 
     const fetchBattle = async () => {
       try {
@@ -46,7 +46,6 @@ function JoinBattle() {
 
         const data = await res.json();
         if (res.ok) setBattle(data.battle);
-
       } catch (err) {
         console.log(err);
       }
@@ -57,7 +56,7 @@ function JoinBattle() {
 
   // 🚀 Fetch groups
   useEffect(() => {
-    if (!userInfo) return;
+    if (userInfo === undefined || userInfo === null) return;
 
     const fetchGroups = async () => {
       try {
@@ -72,7 +71,6 @@ function JoinBattle() {
 
         const data = await res.json();
         setGroups(data);
-
       } catch (err) {
         console.log(err);
       }
@@ -82,7 +80,7 @@ function JoinBattle() {
   }, [userInfo]);
 
   const joinBattle = async () => {
-    if (!selectedGroup) return alert("Select group");
+    if (!selectedGroup) return alert("Please select a group");
 
     try {
       const res = await fetch(
@@ -101,36 +99,54 @@ function JoinBattle() {
       );
 
       const data = await res.json();
-
       if (!res.ok) return alert(data.message);
 
-      alert("Joined battle!");
+      alert("🔥 Joined battle successfully!");
       navigate(`/battle/${data.battle._id}`);
-
     } catch (err) {
       console.log(err);
     }
   };
 
-  if (!userInfo) return null;
-  if (!battle) return <h2>Loading battle...</h2>;
+  // ✅ guards
+  if (userInfo === undefined) return null;
+  if (userInfo === null) return null;
+  if (!battle) return <h2 className="loading">Loading battle...</h2>;
 
   return (
     <div className="join-battle-page">
-      <h1>⚔️ Battle Invite</h1>
+      <div className="join-battle-container">
+        <h1 className="title">⚔️ Battle Invite</h1>
 
-      <p>Group A: {battle.groupA?.name}</p>
+        <div className="battle-card">
+          <div className="battle-info">
+            <p><strong>Group A:</strong> {battle?.groupA?.name}</p>
+            <p>
+              <strong>Status:</strong>
+              <span className="status">{battle?.status}</span>
+            </p>
+          </div>
 
-      <select onChange={(e) => setSelectedGroup(e.target.value)}>
-        <option value="">Select group</option>
-        {groups.map((g) => (
-          <option key={g._id} value={g._id}>
-            {g.name}
-          </option>
-        ))}
-      </select>
+          <h3 className="select-title">Select Your Group</h3>
 
-      <button onClick={joinBattle}>Join Battle</button>
+          <select
+            className="select-box"
+            value={selectedGroup}
+            onChange={(e) => setSelectedGroup(e.target.value)}
+          >
+            <option value="">Select group</option>
+            {groups.map((group) => (
+              <option key={group._id} value={group._id}>
+                {group.name}
+              </option>
+            ))}
+          </select>
+
+          <button className="join-btn" onClick={joinBattle}>
+            Join Battle 🚀
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
