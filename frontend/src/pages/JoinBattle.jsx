@@ -16,10 +16,11 @@ function JoinBattle() {
   // 🔐 Redirect if not logged in
   useEffect(() => {
     if (!userInfo) {
-      localStorage.setItem("battleCode", code);
-
-      navigate("/", {
-        state: { redirect: `/battle/invite/${code}` } // ✅ FIXED
+      navigate("/login", {
+        state: {
+          redirect: `/battle/invite/${code}`,
+          inviteMessage: "⚠️ Login to join the battle",
+        },
       });
     }
   }, [code, navigate, userInfo]);
@@ -34,15 +35,13 @@ function JoinBattle() {
           `${import.meta.env.VITE_API_URL}/api/battles/invite/${code}`,
           {
             headers: {
-              Authorization: `Bearer ${userInfo.token}`
-            }
+              Authorization: `Bearer ${userInfo.token}`,
+            },
           }
         );
 
         const data = await res.json();
-        if (!res.ok) return alert(data.message);
-
-        setBattle(data.battle);
+        if (res.ok) setBattle(data.battle);
 
       } catch (err) {
         console.log(err);
@@ -62,8 +61,8 @@ function JoinBattle() {
           `${import.meta.env.VITE_API_URL}/api/groups`,
           {
             headers: {
-              Authorization: `Bearer ${userInfo.token}`
-            }
+              Authorization: `Bearer ${userInfo.token}`,
+            },
           }
         );
 
@@ -78,9 +77,8 @@ function JoinBattle() {
     fetchGroups();
   }, [userInfo]);
 
-  // 🚀 Join battle
   const joinBattle = async () => {
-    if (!selectedGroup) return alert("Please select a group");
+    if (!selectedGroup) return alert("Select group");
 
     try {
       const res = await fetch(
@@ -89,21 +87,20 @@ function JoinBattle() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.token}`
+            Authorization: `Bearer ${userInfo.token}`,
           },
           body: JSON.stringify({
             inviteCode: code,
-            groupB: selectedGroup
-          })
+            groupB: selectedGroup,
+          }),
         }
       );
 
       const data = await res.json();
+
       if (!res.ok) return alert(data.message);
 
-      alert("🔥 Joined battle successfully!");
-
-      // ✅ REDIRECT TO LEADERBOARD
+      alert("Joined battle!");
       navigate(`/battle/${data.battle._id}`);
 
     } catch (err) {
@@ -111,46 +108,25 @@ function JoinBattle() {
     }
   };
 
-  if (!battle) return <h2 className="loading">Loading battle...</h2>;
+  if (!userInfo) return null;
+  if (!battle) return <h2>Loading battle...</h2>;
 
   return (
     <div className="join-battle-page">
-      <div className="join-battle-container">
+      <h1>⚔️ Battle Invite</h1>
 
-        <h1 className="title">⚔️ Battle Invite</h1>
+      <p>Group A: {battle.groupA?.name}</p>
 
-        <div className="battle-card">
+      <select onChange={(e) => setSelectedGroup(e.target.value)}>
+        <option value="">Select group</option>
+        {groups.map((g) => (
+          <option key={g._id} value={g._id}>
+            {g.name}
+          </option>
+        ))}
+      </select>
 
-          <div className="battle-info">
-            <p><strong>Group A:</strong> {battle?.groupA?.name}</p>
-            <p>
-              <strong>Status:</strong>
-              <span className="status">{battle?.status}</span>
-            </p>
-          </div>
-
-          <h3 className="select-title">Select Your Group</h3>
-
-          <select
-            className="select-box"
-            value={selectedGroup}
-            onChange={(e) => setSelectedGroup(e.target.value)}
-          >
-            <option value="">Select group</option>
-            {groups?.map((group) => (
-              <option key={group._id} value={group._id}>
-                {group.name}
-              </option>
-            ))}
-          </select>
-
-          <button className="join-btn" onClick={joinBattle}>
-            Join Battle 🚀
-          </button>
-
-        </div>
-
-      </div>
+      <button onClick={joinBattle}>Join Battle</button>
     </div>
   );
 }
