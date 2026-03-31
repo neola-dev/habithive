@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Lottie from "lottie-react";
 import animationData from "../assets/teamwork.json";
@@ -9,18 +10,26 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inviteMessage, setInviteMessage] = useState("");
-
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const redirect = location.state?.redirect || "/app";
+  const redirect =
+  searchParams.get("redirect") ||
+  location.state?.redirect ||
+  "/app";
 
   useEffect(() => {
-    if (location.state?.inviteMessage) {
-      setInviteMessage(location.state.inviteMessage);
-    }
-  }, [location.state]);
+  const type = searchParams.get("type");
 
+  if (type === "battle") {
+    setInviteMessage("⚠️ Login to join the battle");
+  } else if (type === "group") {
+    setInviteMessage("⚠️ Login to join the invited group");
+  } else if (location.state?.inviteMessage) {
+    setInviteMessage(location.state.inviteMessage);
+  }
+}, [searchParams, location.state]);
   const submitHandler = async (e) => {
     e.preventDefault();
 
