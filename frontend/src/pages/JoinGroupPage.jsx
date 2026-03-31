@@ -18,7 +18,7 @@ const JoinGroupPage = () => {
   // 🔐 Redirect if not logged in
   useEffect(() => {
   
-    if (userInfo===undefined) {
+    if (userInfo===null) {
       navigate("/login", {
         state: {
           redirect: `/invite/${inviteCode}`,
@@ -31,7 +31,7 @@ const JoinGroupPage = () => {
   // 🚀 Fetch group
 
   useEffect(() => {
-    if (userInfo === undefined) return;
+    if (userInfo === undefined || userInfo===null) return;
 
     const fetchGroup = async () => {
       try {
