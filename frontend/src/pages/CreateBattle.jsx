@@ -49,7 +49,7 @@ function CreateBattle() {
     });
 
     const data = await res.json();
-    setInviteLink(`http://localhost:5173${data.inviteLink}`);
+    setInviteLink(`https://habithive-mu.vercel.app/${data.inviteLink}`);
   };
 
   const shareWhatsapp = () => {

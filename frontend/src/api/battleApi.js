@@ -22,4 +22,3 @@ export const getBattleProgress = async (battleId) => {
   });
   return await res.json();
 };
-console.log(BASE_URL)

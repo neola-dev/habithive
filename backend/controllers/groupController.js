@@ -23,7 +23,7 @@ const createGroup = async (req, res) => {
       ],
       inviteCode: inviteCode,
     });
-    const inviteLink = `http://localhost:5173/invite/${inviteCode}`;
+    const inviteLink = `https://habithive-mu.vercel.app/invite/${inviteCode}`;
 
     res.json({
       ...group._doc,
@@ -45,7 +45,7 @@ const getGroups = async (req, res) => {
 
     const groupsWithLink = groups.map(group => ({
         ...group._doc,
-        inviteLink: `http://localhost:5173/invite/${group.inviteCode}`
+        inviteLink: `https://habithive-mu.vercel.app/${group.inviteCode}`
     }));
 
     res.json(groupsWithLink);

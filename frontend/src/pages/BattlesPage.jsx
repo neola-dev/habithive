@@ -11,26 +11,24 @@ function BattlesPage() {
   const token = userInfo?.token;
 
   useEffect(() => {
+  if (!token) {
+    console.log("No token found, redirecting to login...");
+    window.location.href = "/login"; // redirect to login page
+    return;
+  }
 
-    if (!token) {
-      console.log("No token found");
-      return;
+  const fetchData = async () => {
+    try {
+      const data = await getUserBattles(token, filter);
+      console.log("API response:", data);
+      setBattles(data.battles || []);
+    } catch (err) {
+      console.error("Error fetching battles:", err);
     }
+  };
 
-    const fetchData = async () => {
-      try {
-        // Pass filter to API
-        const data = await getUserBattles(token, filter);
-        console.log("API response:", data);
-        setBattles(data.battles || []);
-      } catch (err) {
-        console.error("Error fetching battles:", err);
-      }
-    };
-
-    fetchData();
-
-  }, [token, filter]); // refetch when filter changes
+  fetchData();
+}, [token, filter]);
 
   return (
     <div className="battles-page">
