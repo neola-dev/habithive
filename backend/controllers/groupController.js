@@ -45,7 +45,7 @@ const getGroups = async (req, res) => {
 
     const groupsWithLink = groups.map(group => ({
         ...group._doc,
-        inviteLink: `https://habithive-mu.vercel.app/${group.inviteCode}`
+        inviteLink: `https://habithive-mu.vercel.app/invite/${group.inviteCode}`
     }));
 
     res.json(groupsWithLink);
