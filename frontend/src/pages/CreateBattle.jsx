@@ -13,7 +13,7 @@ function CreateBattle() {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
         const res = await fetch(
-          "http://localhost:5000/api/groups/my-created",
+          `${import.meta.env.VITE_API_URL}/api/groups/my-created`,
           {
             headers: {
               Authorization: `Bearer ${userInfo.token}`
@@ -37,7 +37,7 @@ function CreateBattle() {
 
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-    const res = await fetch("http://localhost:5000/api/battles/invite", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/battles/invite`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

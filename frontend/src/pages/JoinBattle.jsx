@@ -31,7 +31,7 @@ function JoinBattle() {
     const fetchBattle = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/battles/invite/${code}`,
+          `${import.meta.env.VITE_API_URL}/api/battles/invite/${code}`,
           {
             headers: {
               Authorization: `Bearer ${userInfo.token}`
@@ -59,7 +59,7 @@ function JoinBattle() {
     const fetchGroups = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/groups",
+          `${import.meta.env.VITE_API_URL}/api/groups`,
           {
             headers: {
               Authorization: `Bearer ${userInfo.token}`
@@ -84,7 +84,7 @@ function JoinBattle() {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/battles/join",
+        `${import.meta.env.VITE_API_URL}/api/battles/join`,
         {
           method: "POST",
           headers: {

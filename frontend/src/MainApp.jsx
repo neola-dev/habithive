@@ -35,7 +35,7 @@ function MainApp() {
 
   const fetchGroups = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/groups", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/groups`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
 
@@ -55,7 +55,7 @@ function MainApp() {
 
   const fetchBadges = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/badges", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/badges`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
 
@@ -73,7 +73,7 @@ function MainApp() {
 
   const fetchActiveBattle = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/battles/active-battle", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/battles/active-battle`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
 
@@ -97,7 +97,7 @@ function MainApp() {
     if (!newGroupName.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/groups", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/groups`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

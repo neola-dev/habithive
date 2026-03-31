@@ -27,7 +27,7 @@ const JoinGroupPage = () => {
     const fetchGroup = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/groups/invite/${inviteCode}`,
+          `${import.meta.env.VITE_API_URL}/api/groups/invite/${inviteCode}`,
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
@@ -49,7 +49,7 @@ const JoinGroupPage = () => {
   const handleJoin = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/groups/invite/${inviteCode}`,
+        `${import.meta.env.VITE_API_URL}/api/groups/invite/${inviteCode}`,
         {
           method: "POST",
           headers: {
@@ -66,7 +66,7 @@ const JoinGroupPage = () => {
 
         // Refresh group details
         const updatedRes = await fetch(
-          `http://localhost:5000/api/groups/invite/${inviteCode}`,
+          `${import.meta.env.VITE_API_URL}/api/groups/invite/${inviteCode}`,
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );
         const updatedGroup = await updatedRes.json();

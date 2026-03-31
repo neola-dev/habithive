@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api/battles";
+const BASE_URL = import.meta.env.VITE_API_URL;
 const getToken = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   return userInfo?.token;

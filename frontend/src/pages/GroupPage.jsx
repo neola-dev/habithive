@@ -21,7 +21,7 @@ function GroupPage() {
 
   const fetchGroup = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/groups/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/groups/${id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       const data = await res.json();
@@ -33,7 +33,7 @@ function GroupPage() {
 
   const handleCheckin = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/checkins/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/checkins/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

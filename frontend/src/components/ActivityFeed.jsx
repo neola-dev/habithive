@@ -11,7 +11,7 @@ const ActivityFeed = ({ groupId }) => {
     const fetchActivities = async()=>{
 
       const res = await fetch(
-        `http://localhost:5000/api/activity/${groupId}`,
+        `${import.meta.env.VITE_API_URL}/api/activity/${groupId}`,
         {
           headers:{
             Authorization:`Bearer ${userInfo.token}`

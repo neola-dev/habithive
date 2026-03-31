@@ -22,7 +22,7 @@ const LeaderboardPage = () => {
       try {
         const token = userInfo?.token;
         const res = await fetch(
-          `http://localhost:5000/api/groups/${groupId}/leaderboard?type=${type}`,
+          `${import.meta.env.VITE_API_URL}/api/groups/${groupId}/leaderboard?type=${type}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
