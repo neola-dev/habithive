@@ -1,107 +1,158 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
-import Lottie from "lottie-react";
-import animationData from "../assets/teamwork.json";
-import logo from "../assets/logo.png";
-import "../styles/Auth.css";
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [inviteMessage, setInviteMessage] = useState("");
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "../styles/JoinBattle.css";
 
+function JoinBattle() {
+
+  const { code } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const redirect = location.state?.redirect || "/app";
+  const [battle, setBattle] = useState(null);
+  const [groups, setGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState("");
 
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+
+  // 🔐 Redirect if not logged in
   useEffect(() => {
-    const inviteCode = localStorage.getItem("inviteCode");
-    const battleCode = localStorage.getItem("battleCode");
+    if (!userInfo) {
+      localStorage.setItem("battleCode", code);
 
-    if (inviteCode) setInviteMessage("⚠️ Login to join the invited group");
-    if (battleCode) setInviteMessage("⚠️ Login to join the battle");
-  }, []);
+      navigate("/", {
+        state: { redirect: `/battle/invite/${code}` } // ✅ FIXED
+      });
+    }
+  }, [code, navigate, userInfo]);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  // 🚀 Fetch battle
+  useEffect(() => {
+    if (!userInfo) return;
+
+    const fetchBattle = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/battles/invite/${code}`,
+          {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`
+            }
+          }
+        );
+
+        const data = await res.json();
+        if (!res.ok) return alert(data.message);
+
+        setBattle(data.battle);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchBattle();
+  }, [code, userInfo]);
+
+  // 🚀 Fetch groups
+  useEffect(() => {
+    if (!userInfo) return;
+
+    const fetchGroups = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/groups`,
+          {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`
+            }
+          }
+        );
+
+        const data = await res.json();
+        setGroups(data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchGroups();
+  }, [userInfo]);
+
+  // 🚀 Join battle
+  const joinBattle = async () => {
+    if (!selectedGroup) return alert("Please select a group");
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/login`,
-        { email, password }
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/battles/join`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`
+          },
+          body: JSON.stringify({
+            inviteCode: code,
+            groupB: selectedGroup
+          })
+        }
       );
 
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify({ token: data.token, id: data.id, name: data.name })
-      );
+      const data = await res.json();
+      if (!res.ok) return alert(data.message);
 
-      const inviteCode = localStorage.getItem("inviteCode");
-      const battleCode = localStorage.getItem("battleCode");
+      alert("🔥 Joined battle successfully!");
 
-      if (inviteCode) {
-        localStorage.removeItem("inviteCode");
-        navigate(`/invite/${inviteCode}`);
-      } else if (battleCode) {
-        localStorage.removeItem("battleCode");
-        navigate(`/battle/${battleCode}`);
-      } else {
-        navigate(redirect);
-      }
-    } catch {
-      alert("Login failed");
+      // ✅ REDIRECT TO LEADERBOARD
+      navigate(`/battle/${data.battle._id}`);
+
+    } catch (err) {
+      console.log(err);
     }
   };
 
+  if (!battle) return <h2 className="loading">Loading battle...</h2>;
+
   return (
-    <div className="login-container">
-      {/* LEFT */}
-      <div className="login-left">
-        <h1 className="brand-title">HabitHive</h1>
-        <Lottie animationData={animationData} className="login-animation" />
-        <p className="brand-tagline">Build Better Habits — Together</p>
-      </div>
+    <div className="join-battle-page">
+      <div className="join-battle-container">
 
-      {/* RIGHT */}
-      <div className="login-right">
-        <div className="auth-card">
-          <h2 className="auth-title">Login</h2>
+        <h1 className="title">⚔️ Battle Invite</h1>
 
-          {inviteMessage && (
-            <div className="invite-banner">{inviteMessage}</div>
-          )}
+        <div className="battle-card">
 
-          <form onSubmit={submitHandler}>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="auth-input"
-            />
+          <div className="battle-info">
+            <p><strong>Group A:</strong> {battle?.groupA?.name}</p>
+            <p>
+              <strong>Status:</strong>
+              <span className="status">{battle?.status}</span>
+            </p>
+          </div>
 
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="auth-input"
-            />
+          <h3 className="select-title">Select Your Group</h3>
 
-            <button type="submit" className="auth-button">
-              Login
-            </button>
-          </form>
+          <select
+            className="select-box"
+            value={selectedGroup}
+            onChange={(e) => setSelectedGroup(e.target.value)}
+          >
+            <option value="">Select group</option>
+            {groups?.map((group) => (
+              <option key={group._id} value={group._id}>
+                {group.name}
+              </option>
+            ))}
+          </select>
 
-          <p className="auth-link">
-            New user?{" "}
-            <span onClick={() => navigate("/register")}>Register here</span>
-          </p>
+          <button className="join-btn" onClick={joinBattle}>
+            Join Battle 🚀
+          </button>
+
         </div>
+
       </div>
     </div>
   );
 }
 
-export default Login;
+export default JoinBattle;
