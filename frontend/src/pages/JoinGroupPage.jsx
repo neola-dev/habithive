@@ -10,8 +10,12 @@ const JoinGroupPage = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
-
+  const [userInfo, setUserInfo] = useState(null);
+  
+  useEffect(() => {
+      const storedUser = localStorage.getItem("userInfo");
+      setUserInfo(storedUser ? JSON.parse(storedUser) : null);
+  }, []);
   // 🔐 Redirect if not logged in
   useEffect(() => {
     if (!userInfo) {
