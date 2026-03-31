@@ -17,7 +17,7 @@ const JoinGroupPage = () => {
 
   // 🔐 Redirect if not logged in
   useEffect(() => {
-    if (userInfo === undefined) return;
+  
     if (!userInfo) {
       navigate("/login", {
         state: {
