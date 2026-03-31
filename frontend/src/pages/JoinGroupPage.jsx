@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../styles/JoinGroupPage.css"; // import CSS
+import "../styles/JoinGroupPage.css";
 
 const JoinGroupPage = () => {
   const { inviteCode } = useParams();
@@ -8,23 +8,25 @@ const JoinGroupPage = () => {
 
   const [group, setGroup] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [message,setMessage]=useState(null);
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const [message, setMessage] = useState(null);
 
-  // Redirect if not logged in
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+
+  // Redirect to login if not logged in
   useEffect(() => {
     if (!userInfo) {
       navigate("/login", {
         state: { redirect: `/invite/${inviteCode}` },
       });
     }
-  }, [navigate, inviteCode, userInfo]);
+  }, [userInfo, navigate, inviteCode]);
 
-  // Fetch group details
+  // Fetch group details only if logged in
   useEffect(() => {
     if (!userInfo) return;
 
     const fetchGroup = async () => {
+      setLoading(true);
       try {
         const res = await fetch(
           `${import.meta.env.VITE_API_URL}/api/groups/invite/${inviteCode}`,
@@ -34,9 +36,15 @@ const JoinGroupPage = () => {
         );
 
         const data = await res.json();
-        if (res.ok) setGroup(data);
-      } catch (error) {
-        console.log(error);
+
+        if (res.ok) {
+          setGroup(data);
+        } else {
+          setGroup(null); // group not found or invalid invite
+        }
+      } catch (err) {
+        console.log(err);
+        setGroup(null);
       } finally {
         setLoading(false);
       }
@@ -45,8 +53,10 @@ const JoinGroupPage = () => {
     fetchGroup();
   }, [inviteCode, userInfo]);
 
-  // Join Group Handler
+  // Join group handler
   const handleJoin = async () => {
+    if (!userInfo) return;
+
     try {
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/groups/invite/${inviteCode}`,
@@ -67,17 +77,25 @@ const JoinGroupPage = () => {
         // Refresh group details
         const updatedRes = await fetch(
           `${import.meta.env.VITE_API_URL}/api/groups/invite/${inviteCode}`,
-          { headers: { Authorization: `Bearer ${userInfo.token}` } }
+          {
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+          }
         );
         const updatedGroup = await updatedRes.json();
         setGroup(updatedGroup);
       } else {
-        setMessage(data.message);
+        setMessage(data.message || "Failed to join group");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
+      setMessage("An error occurred while joining the group.");
     }
   };
+
+  // ------------------- RENDER -------------------
+
+  // Wait until redirect happens if not logged in
+  if (!userInfo) return null;
 
   if (loading) return <h2 className="loading-text">Loading group...</h2>;
   if (!group) return <h2 className="loading-text">Group not found</h2>;
@@ -90,7 +108,9 @@ const JoinGroupPage = () => {
         <p className="group-creator">
           Created by: <b>{group.creator?.name}</b>
         </p>
-        <p className="group-members">Members: {group.members?.length || 0}</p>
+        <p className="group-members">
+          Members: {group.members?.length || 0}
+        </p>
 
         <button className="primary-btn join-btn" onClick={handleJoin}>
           Join Group
