@@ -10,11 +10,15 @@ function JoinBattle() {
   const [battle, setBattle] = useState(null);
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState("");
-
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+  const [userInfo, setUserInfo] = useState(undefined);
+  useEffect(() => {
+  const storedUser = localStorage.getItem("userInfo");
+  setUserInfo(storedUser ? JSON.parse(storedUser) : null);
+}, []);
 
   // 🔐 Redirect if not logged in
   useEffect(() => {
+    if (userInfo === undefined) return;
     if (!userInfo) {
       navigate("/login", {
         state: {
@@ -27,7 +31,7 @@ function JoinBattle() {
 
   // 🚀 Fetch battle
   useEffect(() => {
-    if (!userInfo) return;
+    if (userInfo === undefined) return null;
 
     const fetchBattle = async () => {
       try {
