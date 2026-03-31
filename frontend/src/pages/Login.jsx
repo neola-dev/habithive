@@ -13,14 +13,14 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔥 Default redirect
   const redirect = location.state?.redirect || "/app";
+
   useEffect(() => {
-  if (location.state?.inviteMessage) {
-    setInviteMessage(location.state.inviteMessage);
-  }
-}, [location.state]);
- 
+    if (location.state?.inviteMessage) {
+      setInviteMessage(location.state.inviteMessage);
+    }
+  }, [location.state]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -39,10 +39,7 @@ function Login() {
         })
       );
 
-      // ✅ Redirect back to invite (group OR battle)
       navigate(redirect);
-
-
     } catch {
       alert("Login failed");
     }
@@ -50,7 +47,6 @@ function Login() {
 
   return (
     <div className="login-container">
-
       {/* LEFT */}
       <div className="login-left">
         <h1 className="brand-title">HabitHive</h1>
@@ -65,11 +61,8 @@ function Login() {
         <div className="auth-card">
           <h2 className="auth-title">Login</h2>
 
-          {/* ✅ Invite Banner */}
           {inviteMessage && (
-            <div className="invite-banner">
-              {inviteMessage}
-            </div>
+            <div className="invite-banner">{inviteMessage}</div>
           )}
 
           <form onSubmit={submitHandler}>
