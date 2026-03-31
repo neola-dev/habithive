@@ -31,7 +31,7 @@ const JoinGroupPage = () => {
   // 🚀 Fetch group
 
   useEffect(() => {
-    if (userInfo === undefined) return null;
+    if (userInfo === undefined) return;
 
     const fetchGroup = async () => {
       try {
