@@ -31,7 +31,7 @@ function JoinBattle() {
 
   // 🚀 Fetch battle
   useEffect(() => {
-    if (userInfo === undefined) return null;
+    if (userInfo === undefined) return;
 
     const fetchBattle = async () => {
       try {
