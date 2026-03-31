@@ -5,7 +5,7 @@ const getToken = () => {
 };
 
 export const getUserBattles = async (token, status = "active") => {
-  const res = await fetch(`${BASE_URL}?status=${status}`, {
+  const res = await fetch(`${BASE_URL}/api/battles?status=${status}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -15,10 +15,11 @@ export const getUserBattles = async (token, status = "active") => {
 
 export const getBattleProgress = async (battleId) => {
     const token=getToken();
-  const res = await fetch(`${BASE_URL}/${battleId}/progress`, {
+  const res = await fetch(`${BASE_URL}/api/battles/${battleId}/progress`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   });
   return await res.json();
 };
+console.log(BASE_URL)
