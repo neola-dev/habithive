@@ -10,7 +10,12 @@ function JoinBattle() {
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState("");
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+  const [userInfo, setUserInfo] = useState(null);
+  
+  useEffect(() => {
+      const storedUser = localStorage.getItem("userInfo");
+      setUserInfo(storedUser ? JSON.parse(storedUser) : null);
+  }, []);
 
   // 🔐 Redirect if not logged in
   useEffect(() => {
