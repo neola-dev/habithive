@@ -19,7 +19,7 @@ function JoinBattle() {
   // 🔐 Redirect if not logged in
   useEffect(() => {
     
-    if (!userInfo) {
+    if (userInfo===null) {
       navigate("/login", {
         state: {
           redirect: `/battle/invite/${code}`,
@@ -31,7 +31,7 @@ function JoinBattle() {
 
   // 🚀 Fetch battle
   useEffect(() => {
-    if (userInfo === undefined) return;
+    if (userInfo === undefined || userInfo===null) return;
 
     const fetchBattle = async () => {
       try {
