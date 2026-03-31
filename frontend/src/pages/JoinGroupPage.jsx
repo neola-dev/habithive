@@ -25,8 +25,9 @@ const JoinGroupPage = () => {
   }, [userInfo, navigate, inviteCode]);
 
   // 🚀 Fetch group
+
   useEffect(() => {
-    if (!userInfo) return;
+    if (!userInfo) return null;
 
     const fetchGroup = async () => {
       try {

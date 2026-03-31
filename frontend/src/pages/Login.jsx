@@ -15,21 +15,12 @@ function Login() {
 
   // 🔥 Default redirect
   const redirect = location.state?.redirect || "/app";
-
   useEffect(() => {
-    // ✅ Handle BOTH group & battle invite messages
-    if (location.state?.inviteMessage) {
-      setInviteMessage(location.state.inviteMessage);
-    } else if (location.state?.redirect) {
-      // fallback detection (extra safe)
-      if (location.state.redirect.includes("/invite/")) {
-        setInviteMessage("⚠️ Login to join the invited group");
-      } else if (location.state.redirect.includes("/battle/invite/")) {
-        setInviteMessage("⚠️ Login to join the battle");
-      }
-    }
-  }, [location.state]);
-
+  if (location.state?.inviteMessage) {
+    setInviteMessage(location.state.inviteMessage);
+  }
+}, [location.state]);
+ 
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -50,6 +41,7 @@ function Login() {
 
       // ✅ Redirect back to invite (group OR battle)
       navigate(redirect);
+
 
     } catch {
       alert("Login failed");
