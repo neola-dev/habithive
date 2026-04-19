@@ -16,7 +16,7 @@ const AuthRedirect = ({ children }) => {
   if (userInfo === null) {
     return (
       <Navigate
-        to="/login"
+        to="/"
         state={{
           redirect: location.pathname,
           inviteMessage: location.pathname.includes("battle")

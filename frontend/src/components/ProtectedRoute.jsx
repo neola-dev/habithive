@@ -1,12 +1,11 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const location = useLocation();
 
   if (!userInfo) {
-    localStorage.setItem("redirectPath", window.location.pathname);
-    return <Navigate to="/" />;
+    return <Navigate to="/" state={{ redirect: location.pathname }} replace />;
   }
 
   return children;
