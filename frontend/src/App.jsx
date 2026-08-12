@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -13,6 +14,18 @@ import BattlePage from "./pages/BattlePage";
 import AuthRedirect from "./components/AuthRedirect";
 
 function App() {
+  // Enforce tab/session-only persistence if Remember Me was not checked during login
+  useEffect(() => {
+    const sessionAlive = sessionStorage.getItem("sessionAlive");
+    if (!sessionAlive) {
+      const rememberMe = localStorage.getItem("rememberMe") === "true";
+      if (!rememberMe) {
+        localStorage.removeItem("userInfo");
+      }
+      sessionStorage.setItem("sessionAlive", "true");
+    }
+  }, []);
+
   return (
     <Router>
       <Routes>

@@ -1,96 +1,211 @@
-/* ===== Page ===== */
+/* ================= JOIN BATTLE PAGE — PREMIUM SAAS ================= */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .join-battle-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #FFE4E1, #FFF3E0);
+  background: var(--color-bg-base);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 90px 24px 60px;
+  box-sizing: border-box;
 }
 
-/* ===== Container ===== */
 .join-battle-container {
   width: 100%;
-  max-width: 500px;
-  padding: 20px;
-}
-
-/* ===== Title ===== */
-.title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-  color: #1F2937;
-  margin-bottom: 20px;
-}
-
-/* ===== Card ===== */
-.battle-card {
-  background: white;
-  padding: 25px;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  max-width: 580px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  border-top: 5px solid #FF8F3F;
-  transition: 0.25s;
+  gap: 20px;
+  animation: fadeSlideUp 0.45s ease-out forwards;
 }
 
-.battle-card:hover {
-  transform: translateY(-3px);
+/* PAGE TITLE */
+.join-battle-page-title {
+  text-align: center;
 }
 
-/* ===== Info ===== */
-.battle-info p {
-  margin: 5px 0;
-  color: #374151;
+.join-battle-page-title h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1E293B;
+  letter-spacing: -0.03em;
+  margin: 0 0 6px;
 }
 
-.status {
-  margin-left: 8px;
-  color: #FF8F3F;
-  font-weight: 600;
+.join-battle-page-title p {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0;
+  font-weight: 500;
 }
 
-/* ===== Select ===== */
-.select-title {
-  margin-top: 10px;
+/* MAIN CARD */
+.join-battle-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(241, 245, 249, 0.8);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.join-battle-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(255, 107, 0, 0.1);
+}
+
+/* DARK HEADER */
+.join-battle-card-header {
+  background: linear-gradient(135deg, #172033, #0f1825);
+  padding: 24px 28px;
+  position: relative;
+}
+
+.join-battle-card-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, #FF6B00, #FF8C00);
+}
+
+.join-battle-vs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.join-battle-team {
+  flex: 1;
+  text-align: center;
+}
+
+.join-battle-team-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.join-battle-team-name {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.join-battle-vs-badge {
+  background: rgba(255, 107, 0, 0.2);
+  border: 1px solid rgba(255, 107, 0, 0.35);
+  color: #FF8C00;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  letter-spacing: 2px;
+}
+
+.join-battle-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22C55E;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 14px;
+}
+
+/* CARD BODY */
+.join-battle-card-body {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.join-battle-select-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 6px;
+  display: block;
 }
 
 .select-box {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  outline: none;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #E2E8F0;
+  background: #F8FAFC;
+  color: #1E293B;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%2364748B' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-color: #F8FAFC;
+  padding-right: 40px;
 }
 
 .select-box:focus {
-  border-color: #FF8F3F;
-  box-shadow: 0 0 0 2px rgba(255,143,63,0.2);
+  border-color: #FF6B00;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
 }
 
-/* ===== Button ===== */
 .join-btn {
-  background: linear-gradient(135deg, #FF8F3F, #FB923C);
-  color: white;
-  padding: 12px;
-  border-radius: 10px;
+  width: 100%;
+  background: #FF6B00;
+  color: #FFFFFF;
   border: none;
-  font-weight: 600;
+  padding: 14px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.2s;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.2);
+  letter-spacing: 0.2px;
 }
 
 .join-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(255,143,63,0.3);
+  background: #E05E00;
+  transform: scale(1.02);
+  box-shadow: 0 8px 28px rgba(255, 107, 0, 0.28);
 }
 
-/* ===== Loading ===== */
+.join-btn:active {
+  transform: scale(0.98);
+}
+
+.join-btn:disabled {
+  background: #E2E8F0;
+  color: #94A3B8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* LOADING */
 .loading {
   text-align: center;
-  margin-top: 100px;
+  color: #64748B;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 60px 24px;
 }

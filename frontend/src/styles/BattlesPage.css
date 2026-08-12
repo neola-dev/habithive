@@ -1,98 +1,133 @@
-/* PAGE CONTAINER */
+/* ═══════════════════════════════════════════════════════════
+   BATTLES PAGE — Navy + Orange + Mint Design System
+═══════════════════════════════════════════════════════════ */
 .battles-page {
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-/* TITLE */
-.battles-title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #222;
-}
-
-/* GRID LAYOUT */
-.battle-grid {
+  padding: var(--space-xl) 0 var(--space-xxl);
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
-
-
-/* EMPTY STATE */
-.no-battles {
+/* ── HEADER ── */
+.battles-header {
   text-align: center;
-  margin-top: 80px;
-  color: #666;
-  font-size: 16px;
-  line-height: 1.6;
+  margin-bottom: 4px;
+  animation: slideUp 0.4s ease-out forwards;
 }
 
-/* OPTIONAL: SMOOTH ENTRY ANIMATION */
-.battle-card {
-  animation: fadeInUp 0.4s ease;
-  flex: 1 1 300px;
-  min-width: 280px;
-  max-width: 350px;
+.battles-title {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-heading);
 }
 
-/* ANIMATION */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.battles-subtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  font-weight: 500;
 }
 
-/* BattlesPage.css */
-
-/* Container for filter buttons */
+/* ── FILTERS ── */
 .battle-filters {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 6px;
+  margin-bottom: 4px;
+  animation: slideUp 0.5s ease-out forwards;
   flex-wrap: wrap;
 }
 
-/* Common button style */
 .battle-filters button {
-  padding: 8px 20px;
-  border: 2px solid #ff6b6b;
-  background-color: white;
-  color: #ff6b6b;
+  padding: 9px 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  color: var(--color-text-secondary);
   font-weight: 600;
-  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all var(--t-fast);
+  box-shadow: var(--shadow-xs);
 }
 
-/* Hover effect */
 .battle-filters button:hover {
-  background-color: #ff6b6b;
-  color: white;
+  border-color: var(--hh-orange);
+  color: var(--hh-orange);
+  background: var(--hh-orange-50);
 }
 
-/* Active selected filter */
 .battle-filters button.active {
-  background-color: #ff6b6b;
-  color: white;
-  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+  background: var(--hh-navy);
+  color: #FFFFFF;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(15, 31, 61, 0.25);
 }
 
-/* Responsive adjustment */
-@media (max-width: 500px) {
-  .battle-filters button {
-    padding: 6px 12px;
-    font-size: 14px;
-  }
+/* ── GRID ── */
+.battle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-md);
+  animation: slideUp 0.55s ease-out forwards;
+}
+
+/* ── EMPTY STATE ── */
+.no-battles {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  border: 1.5px dashed var(--color-border);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xxl) var(--space-xl);
+  text-align: center;
+  max-width: 460px;
+  margin: 40px auto 0;
+  animation: slideUp 0.5s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.no-battles:hover {
+  transform: translateY(-3px);
+  border-color: var(--hh-orange);
+  box-shadow: var(--shadow-md);
+}
+
+.no-battles-icon {
+  font-size: 44px;
+  filter: drop-shadow(0 4px 12px rgba(249, 115, 22, 0.2));
+}
+
+.no-battles h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin: 0;
+  font-family: var(--font-heading);
+}
+
+.no-battles p {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .battles-page { gap: var(--space-md); }
 }

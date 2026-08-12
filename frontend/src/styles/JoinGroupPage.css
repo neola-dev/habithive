@@ -1,99 +1,201 @@
-/* ======== Page Background ======== */
+/* ================= JOIN GROUP PAGE — PREMIUM SAAS ================= */
+@keyframes groupCardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .join-group-page {
   min-height: 100vh;
+  background: var(--color-bg-base);
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #FFE4E1; /* soft warm background */
-  font-family: "Poppins", sans-serif;
-  padding: 20px;
+  justify-content: center;
+  padding: 90px 24px 60px;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* ======== Loading & Not Found ======== */
+.join-group-wrapper {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: groupCardIn 0.45s ease-out forwards;
+}
+
+/* HERO */
+.join-group-hero {
+  text-align: center;
+}
+
+.join-group-hero h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1E293B;
+  letter-spacing: -0.03em;
+  margin: 0 0 6px;
+}
+
+.join-group-hero p {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* LOADING / NOT FOUND */
 .loading-text {
   text-align: center;
-  margin-top: 100px;
-  font-size: 22px;
-  color: #1f2937;
+  font-size: 16px;
+  color: #64748B;
+  font-weight: 500;
+  padding: 60px 24px;
 }
 
-/* ======== Group Card ======== */
+/* CARD */
 .group-card-container {
-  background: white;
-  padding: 30px 25px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  border: 2px solid orangered;
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(241, 245, 249, 0.8);
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .group-card-container:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 20px 50px rgba(255, 107, 0, 0.1);
 }
 
-/* ======== Text Styling ======== */
-.group-title {
+/* DARK CARD HEADER */
+.group-card-header {
+  background: linear-gradient(135deg, #172033, #0f1825);
+  padding: 28px;
+  text-align: center;
+  position: relative;
+}
+
+.group-card-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, #FF6B00, #FF8C00);
+}
+
+.group-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 107, 0, 0.18);
+  border: 2px solid rgba(255, 107, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 28px;
-  color: #FF8F3F;
-  margin-bottom: 10px;
-  font-weight: 700;
+  margin: 0 auto 14px;
+}
+
+.group-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  color: black;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
 }
 
 .group-desc {
-  font-size: 16px;
-  color: #4B5563;
-  margin-bottom: 15px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
-.group-creator,
-.group-members {
-  font-size: 14px;
-  color: #6B7280;
-  margin-bottom: 10px;
+/* CARD BODY */
+.group-card-body {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* ======== Buttons ======== */
-.primary-btn.join-btn {
-  background: orangered;
-  color: white;
-  padding: 12px 20px;
+/* STATS ROW */
+.group-stats-row {
+  display: flex;
+  gap: 12px;
+}
+
+.group-stat-chip {
+  flex: 1;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: center;
+}
+
+.group-stat-chip-label {
+  font-size: 10px;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.group-stat-chip-value {
   font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+/* SUCCESS / INFO MSG */
+.info {
+  background: rgba(34, 197, 94, 0.08);
+  color: #16A34A;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  border: 1px solid rgba(34, 197, 94, 0.2);
   font-weight: 600;
-  border-radius: 8px;
+  text-align: center;
+}
+
+/* JOIN BUTTON */
+.primary-btn.join-btn {
+  width: 100%;
+  background: #FF6B00;
+  color: #FFFFFF;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
 }
 
 .primary-btn.join-btn:hover {
-  background: #ff5a1f;
+  background: #E05E00;
+  transform: scale(1.02);
+  box-shadow: 0 8px 28px rgba(255, 107, 0, 0.28);
 }
 
-/* ======== Responsive ======== */
+.primary-btn.join-btn:active {
+  transform: scale(0.98);
+}
+
 @media (max-width: 500px) {
-  .group-card-container {
-    padding: 25px 15px;
+  .join-group-page {
+    padding-top: 80px;
   }
-
-  .group-title {
-    font-size: 24px;
+  .group-stats-row {
+    flex-direction: column;
   }
-
-  .group-desc {
-    font-size: 15px;
-  }
-
-  .primary-btn.join-btn {
-    width: 100%;
-  }
-}
-.info{
-    font-size: 15px;
-    color: green;
-    font-weight: 400;
 }

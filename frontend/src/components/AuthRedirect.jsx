@@ -7,23 +7,35 @@ const AuthRedirect = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("userInfo");
-    setUserInfo(storedUser ? JSON.parse(storedUser) : null);
+
+    if (storedUser) {
+      try {
+        setUserInfo(JSON.parse(storedUser));
+      } catch {
+        setUserInfo(null);
+      }
+    } else {
+      setUserInfo(null);
+    }
   }, []);
 
-  // ⛔ Wait until we know auth state
-  if (userInfo === undefined) return null;
+  // Wait until auth state is loaded
+  if (userInfo === undefined) {
+    return null; // or a loading spinner
+  }
 
-  if (userInfo === null) {
+  // Not logged in OR invalid userInfo
+  if (!userInfo || !userInfo.token) {
     return (
       <Navigate
         to="/"
+        replace
         state={{
           redirect: location.pathname,
           inviteMessage: location.pathname.includes("battle")
             ? "⚠️ Login to join the battle"
             : "⚠️ Login to join the group",
         }}
-        replace
       />
     );
   }

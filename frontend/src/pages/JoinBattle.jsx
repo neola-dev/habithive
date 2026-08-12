@@ -94,44 +94,69 @@ function JoinBattle() {
   };
 
   if (!userInfo) return null;
-  if (!battle) return <h2 className="loading">Loading battle...</h2>;
+  if (!battle) return <h2 className="loading">⏳ Loading battle...</h2>;
 
   return (
     <div className="join-battle-page">
       <div className="join-battle-container">
-        <h1 className="title">⚔️ Battle Invite</h1>
+        <button className="back-btn" onClick={() => navigate("/app")}>
+          ← Back to Dashboard
+        </button>
 
-        <div className="battle-card">
-          <div className="battle-info">
-            <p><strong>Group A:</strong> {battle?.groupA?.name}</p>
-            <p>
-              <strong>Status:</strong>
-              <span className="status">{battle?.status}</span>
-            </p>
+        {/* Title */}
+        <div className="join-battle-page-title">
+          <h1>⚔️ Battle Invite</h1>
+          <p>You've been challenged. Pick your group and accept the battle!</p>
+        </div>
+
+        {/* Card */}
+        <div className="join-battle-card">
+          {/* Dark Header */}
+          <div className="join-battle-card-header">
+            <div className="join-battle-vs-row">
+              <div className="join-battle-team">
+                <span className="join-battle-team-label">Challenger</span>
+                <span className="join-battle-team-name">{battle?.groupA?.name}</span>
+              </div>
+              <div className="join-battle-vs-badge">VS</div>
+              <div className="join-battle-team">
+                <span className="join-battle-team-label">Your Team</span>
+                <span className="join-battle-team-name">?</span>
+              </div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <span className="join-battle-status-chip">
+                ● {battle?.status}
+              </span>
+            </div>
           </div>
 
-          <h3 className="select-title">Select Your Group</h3>
+          {/* Body */}
+          <div className="join-battle-card-body">
+            <div>
+              <label className="join-battle-select-label">Select Your Group</label>
+              <select
+                className="select-box"
+                value={selectedGroup}
+                onChange={(e) => setSelectedGroup(e.target.value)}
+              >
+                <option value="">Choose a group…</option>
+                {groups?.map((group) => (
+                  <option key={group._id} value={group._id}>
+                    {group.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <select
-            className="select-box"
-            value={selectedGroup}
-            onChange={(e) => setSelectedGroup(e.target.value)}
-          >
-            <option value="">Select group</option>
-            {groups?.map((group) => (
-              <option key={group._id} value={group._id}>
-                {group.name}
-              </option>
-            ))}
-          </select>
-
-          <button className="join-btn" onClick={joinBattle}>
-            Join Battle 🚀
-          </button>
+            <button className="join-btn" onClick={joinBattle} disabled={!selectedGroup}>
+              🚀 Join Battle
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default JoinBattle;
+export default JoinBattle;
