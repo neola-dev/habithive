@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
-import axios from "axios";
 import Lottie from "lottie-react";
 import animationData from "../assets/teamwork.json";
 import "../styles/Login.css";
@@ -14,7 +13,6 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null); // { message, type }
   const [inviteMessage, setInviteMessage] = useState("");
-  const [googleClientId, setGoogleClientId] = useState("");
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -52,83 +50,6 @@ function Login() {
       navigate(redirect, { replace: true });
     }
   }, [navigate, redirect, location.pathname]);
-
-  // ✅ Fetch Google Client ID and initialize Google Sign-In button
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/api/users/config`)
-      .then((res) => {
-        if (res.data.googleClientId) {
-          setGoogleClientId(res.data.googleClientId);
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to load backend configurations:", err);
-      });
-  }, []);
-
-  // Initialize and Render Google Sign-In Button when Google SDK is loaded and clientId is available
-  useEffect(() => {
-    if (googleClientId && window.google) {
-      try {
-        window.google.accounts.id.initialize({
-          client_id: googleClientId,
-          callback: handleGoogleCredentialResponse,
-        });
-        window.google.accounts.id.renderButton(
-          document.getElementById("google-signin-btn"),
-          {
-            theme: "outline",
-            size: "large",
-            width: "310",
-            text: "signin_with",
-            shape: "pill"
-          }
-        );
-      } catch (err) {
-        console.error("Google accounts initialize error:", err);
-      }
-    }
-  }, [googleClientId]);
-
-  // ✅ Callback for Google Sign-In
-  const handleGoogleCredentialResponse = async (response) => {
-    if (isLoading) return;
-    setIsLoading(true);
-    try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/google-auth`,
-        { credential: response.credential }
-      );
-
-      // Save user session
-      localStorage.setItem("rememberMe", rememberMe ? "true" : "false");
-      if (rememberMe) {
-        // Fallback to typed email or just keep it
-        if (email) localStorage.setItem("rememberedEmail", email);
-      } else {
-        localStorage.removeItem("rememberedEmail");
-      }
-
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify({
-          token: data.token,
-          id: data.id,
-          name: data.name,
-        })
-      );
-
-      showToast("Registered successfully via Google!", "success");
-      setTimeout(() => {
-        navigate(redirect, { replace: true });
-      }, 1000);
-
-    } catch (error) {
-      const msg = error.response?.data?.message || "Google authentication failed. Please try again.";
-      showToast(msg, "error");
-      setIsLoading(false);
-    }
-  };
 
   const showToast = (message, type) => {
     setToast({ message, type });
@@ -184,10 +105,17 @@ function Login() {
     setIsLoading(true);
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/login`,
-        { email, password }
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Login failed");
+      }
 
       // Handle Remember Me
       localStorage.setItem("rememberMe", rememberMe ? "true" : "false");
@@ -213,7 +141,7 @@ function Login() {
 
     } catch (error) {
       setIsLoading(false);
-      const backendMessage = error.response?.data?.message;
+      const backendMessage = error.message;
       if (backendMessage === "Invalid credentials") {
         showToast("Incorrect email or password", "error");
       } else {
@@ -355,14 +283,6 @@ function Login() {
               ) : "Sign In"}
             </button>
           </form>
-
-          {/* Google */}
-          {googleClientId && (
-            <div className="google-divider-container">
-              <span className="google-divider-text">or continue with</span>
-              <div id="google-signin-btn" className="google-btn-wrapper"></div>
-            </div>
-          )}
 
           <p className="auth-link">
             New to HabitHive?{" "}

@@ -6,7 +6,6 @@ const cors = require("cors");
 
 const groupRoutes = require("./routes/groupRoutes");
 const checkInRoutes = require("./routes/checkInRoutes");
-const habitRoutes = require("./routes/habitRoutes");
 const userRoutes = require("./routes/userRoutes");
 const leaderboardRoutes = require("./routes/leaderboardRoutes");
 const activityRoutes = require("./routes/activityRoutes");
@@ -42,7 +41,6 @@ app.use("/api/badges", badgeRoutes);
 app.use("/api/battles", battleRoutes);
 app.use("/api/groups", groupRoutes);
 app.use("/api/activity", activityRoutes);
-app.use("/api/habits", habitRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/checkins", checkInRoutes);
 

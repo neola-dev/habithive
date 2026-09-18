@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 import Lottie from "lottie-react";
 import animationData from "../assets/teamwork.json";
 import "../styles/Auth.css";
@@ -19,7 +18,6 @@ function Register() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null); // { message, type }
-  const [googleClientId, setGoogleClientId] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,73 +41,6 @@ function Register() {
     else if (checksSatisfied <= 4) strength = "Medium";
     else strength = "Strong";
   }
-
-  // ✅ Fetch Google Client ID and initialize Sign-In SDK
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/api/users/config`)
-      .then((res) => {
-        if (res.data.googleClientId) {
-          setGoogleClientId(res.data.googleClientId);
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to load backend config in Register page:", err);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (googleClientId && window.google) {
-      try {
-        window.google.accounts.id.initialize({
-          client_id: googleClientId,
-          callback: handleGoogleCredentialResponse,
-        });
-        window.google.accounts.id.renderButton(
-          document.getElementById("google-signup-btn"),
-          { 
-            theme: "outline", 
-            size: "large", 
-            width: "310",
-            text: "signup_with",
-            shape: "pill"
-          }
-        );
-      } catch (err) {
-        console.error("Google accounts initialize error in Register:", err);
-      }
-    }
-  }, [googleClientId]);
-
-  // ✅ Google Authentication response handler
-  const handleGoogleCredentialResponse = async (response) => {
-    if (isLoading) return;
-    setIsLoading(true);
-    try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/google-auth`,
-        { credential: response.credential }
-      );
-
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify({
-          token: data.token,
-          id: data.id,
-          name: data.name,
-        })
-      );
-
-      showToast("Registered successfully via Google!", "success");
-      setTimeout(() => {
-        navigate(redirect, { replace: true });
-      }, 1000);
-
-    } catch (error) {
-      const msg = error.response?.data?.message || "Google signup failed. Please try again.";
-      showToast(msg, "error");
-      setIsLoading(false);
-    }
-  };
 
   // ✅ Trigger validation on confirmPassword as password changes
   useEffect(() => {
@@ -222,10 +153,17 @@ function Register() {
     setIsLoading(true);
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/register`,
-        { name: name.trim(), email, password }
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
 
       if (!data.token) {
         showToast("Registration error: Token missing from backend!", "error");
@@ -250,7 +188,7 @@ function Register() {
 
     } catch (error) {
       setIsLoading(false);
-      const backendMessage = error.response?.data?.message;
+      const backendMessage = error.message;
       if (backendMessage === "User already exists") {
         showToast("Account already exists with this email address", "error");
       } else {
@@ -470,14 +408,6 @@ function Register() {
               ) : "Create Account"}
             </button>
           </form>
-
-          {/* Google Sign-Up */}
-          {googleClientId && (
-            <div className="google-divider-container">
-              <span className="google-divider-text">or sign up with</span>
-              <div id="google-signup-btn" className="google-btn-wrapper"></div>
-            </div>
-          )}
 
           <p className="auth-link">
             Already have an account?{" "}
